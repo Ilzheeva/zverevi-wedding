@@ -363,6 +363,17 @@ margin-bottom:20px;
 color:var(--coral);
 }
 
+.menu-card h3 + .menu-sub{
+margin-top:-14px;
+}
+.menu-sub{
+font-size:13px;
+letter-spacing:1px;
+text-transform:uppercase;
+color:#b3a597;
+margin-bottom:18px;
+}
+
 .menu-card ul{
 list-style:none;
 }
@@ -437,6 +448,60 @@ transition:.3s;
 
 .submit-btn:hover{
 transform:translateY(-2px);
+}
+
+.checkbox-group{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+}
+.checkbox-option{
+display:flex;
+align-items:center;
+gap:10px;
+padding:12px 18px;
+border:1px solid #e5ddd7;
+border-radius:14px;
+background:#fff;
+cursor:pointer;
+font-size:15px;
+transition:.2s;
+}
+.checkbox-option:hover{
+border-color:var(--coral);
+}
+.checkbox-option input{
+width:auto;
+margin:0;
+accent-color:var(--coral);
+cursor:pointer;
+}
+
+.notice{
+max-width:780px;
+margin:55px auto 0;
+background:rgba(255,255,255,.5);
+border:1px solid #ecdfd6;
+border-left:4px solid var(--coral);
+border-radius:18px;
+padding:26px 36px;
+text-align:center;
+position:relative;
+z-index:3;
+}
+.notice .notice-title{
+font-family:'Cormorant Garamond',serif;
+font-style:italic;
+color:var(--coral);
+font-size:24px;
+display:block;
+margin-bottom:10px;
+}
+.notice p{
+font-size:16px;
+color:#6f6155;
+line-height:1.6;
+margin:0;
 }
 
 .footer{
@@ -804,16 +869,6 @@ Together Forever
 
 <div class="dress-card fade">
 
-<div class="palette">
-
-<div class="color c1"></div>
-<div class="color c2"></div>
-<div class="color c3"></div>
-<div class="color c4"></div>
-<div class="color c5"></div>
-
-</div>
-
 <p>
 Пастельные и природные оттенки прекрасно впишутся в атмосферу
 августовского вечера.
@@ -849,10 +904,10 @@ Together Forever
 <h3>Салаты</h3>
 
 <ul>
-<li>Цезарь</li>
-<li>Греческий</li>
-<li>Фирменный салат</li>
-<li>Без предпочтений</li>
+<li>Салат с хрустящим баклажаном</li>
+<li>Салат греческий</li>
+<li>Салат с морепродуктами</li>
+<li>Цезарь с курицей</li>
 </ul>
 
 </div>
@@ -862,10 +917,11 @@ Together Forever
 <h3>Горячее</h3>
 
 <ul>
-<li>Курица</li>
-<li>Свинина</li>
-<li>Рыба</li>
-<li>Вегетарианское блюдо</li>
+<li>Стейк судака в сливочном соусе с картофельным пюре</li>
+<li>Томлёная говядина с картофельным пюре</li>
+<li>Стейк лосося с овощами гриль</li>
+<li>Кальмар, фаршированный креветками, с салатом</li>
+<li>Котлета из индейки с картофельным пюре и сливочно-грибным соусом</li>
 </ul>
 
 </div>
@@ -873,16 +929,22 @@ Together Forever
 <div class="menu-card fade">
 
 <h3>Напитки</h3>
+<p class="menu-sub">можно выбрать несколько</p>
 
 <ul>
-<li>Сок</li>
-<li>Газированные напитки</li>
-<li>Минеральная вода</li>
-<li>Без предпочтений</li>
+<li>Безалкогольные</li>
+<li>Вино белое</li>
+<li>Вино красное</li>
+<li>Коньяк</li>
 </ul>
 
 </div>
 
+</div>
+
+<div class="notice fade">
+<span class="notice-title">Дорогие гости</span>
+<p>Мы планируем нашу свадьбу как вечер для взрослых, поэтому программа и меню не рассчитаны на детей младшего возраста. Надеемся на ваше понимание и будем счастливы разделить этот день с вами.</p>
 </div>
 
 </div>
@@ -955,10 +1017,10 @@ Together Forever
 <label>Выбор салата</label>
 
 <select>
-<option>Цезарь</option>
-<option>Греческий</option>
-<option>Фирменный</option>
-<option>Без предпочтений</option>
+<option>Салат с хрустящим баклажаном</option>
+<option>Салат греческий</option>
+<option>Салат с морепродуктами</option>
+<option>Цезарь с курицей</option>
 </select>
 
 </div>
@@ -968,24 +1030,25 @@ Together Forever
 <label>Выбор горячего</label>
 
 <select>
-<option>Курица</option>
-<option>Свинина</option>
-<option>Рыба</option>
-<option>Вегетарианское блюдо</option>
+<option>Стейк судака в сливочном соусе с картофельным пюре</option>
+<option>Томлёная говядина с картофельным пюре</option>
+<option>Стейк лосося с овощами гриль</option>
+<option>Кальмар, фаршированный креветками, с салатом</option>
+<option>Котлета из индейки с картофельным пюре и сливочно-грибным соусом</option>
 </select>
 
 </div>
 
 <div class="form-group">
 
-<label>Напитки</label>
+<label>Напитки <span style="font-weight:400;color:#b3a597;font-size:13px;">(можно выбрать несколько)</span></label>
 
-<select>
-<option>Сок</option>
-<option>Газировка</option>
-<option>Минеральная вода</option>
-<option>Без предпочтений</option>
-</select>
+<div class="checkbox-group">
+<label class="checkbox-option"><input type="checkbox" name="drinks" value="Безалкогольные"> Безалкогольные</label>
+<label class="checkbox-option"><input type="checkbox" name="drinks" value="Вино белое"> Вино белое</label>
+<label class="checkbox-option"><input type="checkbox" name="drinks" value="Вино красное"> Вино красное</label>
+<label class="checkbox-option"><input type="checkbox" name="drinks" value="Коньяк"> Коньяк</label>
+</div>
 
 </div>
 
