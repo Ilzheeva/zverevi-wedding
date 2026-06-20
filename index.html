@@ -694,6 +694,40 @@ opacity:.85;
 }
 }
 
+
+.rsvp-success{
+display:none;
+max-width:800px;
+margin:auto;
+background:white;
+padding:60px 45px;
+border-radius:30px;
+box-shadow:var(--shadow);
+text-align:center;
+position:relative;
+z-index:3;
+}
+.rsvp-success-icon{
+font-size:54px;
+margin-bottom:14px;
+}
+.rsvp-success h3{
+font-size:42px;
+color:var(--coral);
+margin-bottom:14px;
+}
+.rsvp-success p{
+font-size:18px;
+color:#6f6155;
+line-height:1.55;
+}
+#rsvp-error{
+display:none;
+color:#c0392b;
+text-align:center;
+margin-top:14px;
+font-size:15px;
+}
 </style>
 </head>
 
@@ -973,17 +1007,18 @@ Together Forever
 
 </div>
 
-<form class="rsvp fade">
+<form class="rsvp fade" id="rsvp-form" action="https://formspree.io/f/xzdqnwqy" method="POST">
+<input type="hidden" name="_subject" value="Новый ответ — свадьба Анастасия и Владислав">
 
 <div class="form-group">
 <label>Ваше имя и фамилия</label>
-<input type="text" required>
+<input type="text" name="Имя и фамилия" required>
 </div>
 
 <div class="form-group">
 <label>Сможете присутствовать?</label>
 
-<select required>
+<select name="Присутствие" required>
 <option>Да, обязательно буду</option>
 <option>К сожалению, не смогу</option>
 </select>
@@ -994,7 +1029,7 @@ Together Forever
 
 <label>Выбор салата</label>
 
-<select>
+<select name="Салат">
 <option>Салат с хрустящим баклажаном</option>
 <option>Салат греческий</option>
 <option>Салат с морепродуктами</option>
@@ -1007,7 +1042,7 @@ Together Forever
 
 <label>Выбор горячего</label>
 
-<select>
+<select name="Горячее">
 <option>Стейк судака в сливочном соусе с картофельным пюре</option>
 <option>Томлёная говядина с картофельным пюре</option>
 <option>Стейк лосося с овощами гриль</option>
@@ -1022,10 +1057,10 @@ Together Forever
 <label>Напитки <span style="font-weight:400;color:#b3a597;font-size:13px;">(можно выбрать несколько)</span></label>
 
 <div class="checkbox-group">
-<label class="checkbox-option"><input type="checkbox" name="drinks" value="Безалкогольные"> Безалкогольные</label>
-<label class="checkbox-option"><input type="checkbox" name="drinks" value="Вино белое"> Вино белое</label>
-<label class="checkbox-option"><input type="checkbox" name="drinks" value="Вино красное"> Вино красное</label>
-<label class="checkbox-option"><input type="checkbox" name="drinks" value="Коньяк"> Коньяк</label>
+<label class="checkbox-option"><input type="checkbox" name="Напитки" value="Безалкогольные"> Безалкогольные</label>
+<label class="checkbox-option"><input type="checkbox" name="Напитки" value="Вино белое"> Вино белое</label>
+<label class="checkbox-option"><input type="checkbox" name="Напитки" value="Вино красное"> Вино красное</label>
+<label class="checkbox-option"><input type="checkbox" name="Напитки" value="Коньяк"> Коньяк</label>
 </div>
 
 </div>
@@ -1034,7 +1069,7 @@ Together Forever
 
 <label>Комментарий</label>
 
-<textarea placeholder="Если есть пожелания или ограничения по питанию"></textarea>
+<textarea name="Комментарий" placeholder="Если есть пожелания или ограничения по питанию"></textarea>
 
 </div>
 
@@ -1042,7 +1077,15 @@ Together Forever
 Отправить ответ
 </button>
 
+<p id="rsvp-error">Не удалось отправить ответ. Проверьте соединение и попробуйте ещё раз.</p>
+
 </form>
+
+<div class="rsvp-success" id="rsvp-success">
+<div class="rsvp-success-icon">&#129293;</div>
+<h3>Спасибо!</h3>
+<p>Ваш ответ принят. Мы очень рады и с нетерпением ждём встречи с вами.</p>
+</div>
 
 </div>
 
@@ -1128,18 +1171,41 @@ threshold:0.15
 document.querySelectorAll('.fade')
 .forEach(el=>observer.observe(el));
 
-document.querySelector('.rsvp')
-.addEventListener('submit',function(e){
-
-e.preventDefault();
-
-alert(
-'Спасибо! Ваш ответ сохранён. ❤️'
-);
-
-});
-
 </script>
 
+
+<script>
+(function(){
+  var form = document.getElementById('rsvp-form');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = form.querySelector('.submit-btn');
+    var err = document.getElementById('rsvp-error');
+    var original = btn.textContent;
+    err.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Отправляем...';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(resp){
+      if (resp.ok) {
+        form.style.display = 'none';
+        var ok = document.getElementById('rsvp-success');
+        ok.style.display = 'block';
+        ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        throw new Error('bad response');
+      }
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = original;
+      err.style.display = 'block';
+    });
+  });
+})();
+</script>
 </body>
 </html>
